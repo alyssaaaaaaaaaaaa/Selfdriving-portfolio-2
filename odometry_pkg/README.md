@@ -14,7 +14,7 @@ Het doel van deze taak was om de robotpositie continu te berekenen en te publice
 
 ---
 
-## Doel van de opdracht
+# Doel van de opdracht
 
 Het doel van taak 1 is:
 
@@ -27,7 +27,7 @@ Het doel van taak 1 is:
 
 ---
 
-## ROS2-package
+# ROS2-package
 
 Voor deze taak is een ROS2-package gemaakt met de naam:
 
@@ -54,11 +54,11 @@ Selfdriving-portfolio-2
 
 ---
 
-## Nodes
+# Nodes
 
 Het systeem bestaat uit twee ROS2-nodes.
 
-### 1. encoder_sim_node.py
+## 1. encoder_sim_node.py
 
 Deze node simuleert de wielencoderdata van de Duckiebot. Omdat er tijdens het ontwikkelen niet direct met een echte Duckiebot is gewerkt, wordt encoderdata nagebootst.
 
@@ -83,7 +83,7 @@ left: 3708.00, right: 4944.00
 
 ---
 
-### 2. odometry_node.py
+## 2. odometry_node.py
 
 Deze node ontvangt de encoderdata via het topic:
 
@@ -109,13 +109,13 @@ De output is een `Pose2D` message.
 
 ---
 
-## Publisher en subscriber
+# Publisher en subscriber
 
 In ROS2 communiceren nodes via topics.
 
 In deze opdracht is gebruikgemaakt van:
 
-### Publisher
+## Publisher
 
 De `encoder_sim_node.py` publiceert encoderdata:
 
@@ -123,11 +123,11 @@ De `encoder_sim_node.py` publiceert encoderdata:
 /wheel_encoders
 ```
 
-### Subscriber
+## Subscriber
 
 De `odometry_node.py` luistert naar dit topic en ontvangt de encoderdata.
 
-### Publisher odometry
+## Publisher odometry
 
 De `odometry_node.py` publiceert daarna de berekende pose op:
 
@@ -149,7 +149,33 @@ odometry_node.py
 
 ---
 
-## Differential drive model
+# Systeemarchitectuur
+
+Het systeem bestaat uit twee ROS2-nodes die communiceren via topics.
+
+De `encoder_sim_node.py` simuleert wielencoderdata van de Duckiebot en publiceert deze data op het topic `/wheel_encoders`.
+
+De `odometry_node.py` ontvangt deze encoderdata, verwerkt de wielbewegingen en berekent hiermee de geschatte robotpose `(x, y, theta)`.
+
+De berekende pose wordt vervolgens gepubliceerd op het topic `/odometry`.
+
+De communicatie tussen de nodes verloopt volledig via het ROS2 publisher/subscriber model.
+
+Datastroom:
+
+```text
+encoder_sim_node.py
+        ↓
+/wheel_encoders
+        ↓
+odometry_node.py
+        ↓
+/odometry
+```
+
+---
+
+# Differential drive model
 
 De Duckiebot gebruikt twee aangedreven wielen: een linkerwiel en een rechterwiel. Dit wordt een differential drive robot genoemd.
 
@@ -163,7 +189,7 @@ Daarom kan de positie van de robot worden geschat door het verschil tussen de li
 
 ---
 
-## Gebruikte parameters
+# Gebruikte parameters
 
 In de odometry-node zijn de volgende robotparameters gebruikt:
 
@@ -183,7 +209,7 @@ Betekenis:
 
 ---
 
-## Berekening van afstand per wiel
+# Berekening van afstand per wiel
 
 Eerst wordt bepaald hoeveel ticks het linker- en rechterwiel sinds de vorige meting zijn veranderd:
 
@@ -203,7 +229,7 @@ Hiermee wordt berekend hoeveel meter elk wiel heeft afgelegd.
 
 ---
 
-## Berekening van verplaatsing en draaiing
+# Berekening van verplaatsing en draaiing
 
 De gemiddelde verplaatsing van de robot wordt berekend met:
 
@@ -223,7 +249,7 @@ Als er verschil is tussen beide afstanden, draait de robot.
 
 ---
 
-## Update van x, y en theta
+# Update van x, y en theta
 
 Daarna wordt de pose van de robot bijgewerkt:
 
@@ -239,7 +265,7 @@ De robot houdt dus continu zijn geschatte positie bij.
 
 ---
 
-## Publiceren van de pose
+# Publiceren van de pose
 
 De berekende pose wordt opgeslagen in een `Pose2D` message:
 
@@ -264,7 +290,72 @@ Hierdoor is de pose beschikbaar op het ROS2-topic:
 
 ---
 
-## Uitvoeren van de code
+# Ontwerpkeuzes en afwegingen
+
+Tijdens de implementatie is gekozen voor een eenvoudige en overzichtelijke architectuur met twee losse ROS2-nodes.
+
+Er is gebruikgemaakt van een gesimuleerde encoder-node omdat er tijdens het ontwikkelen niet continu een fysieke Duckiebot beschikbaar was. Hierdoor kon de odometry-node zelfstandig getest worden.
+
+Er is gekozen voor een differential drive model omdat Duckiebots gebruikmaken van twee onafhankelijk aangedreven wielen. Dit model is relatief eenvoudig te implementeren en geschikt voor basisodometry.
+
+Voor communicatie tussen de nodes is gekozen voor ROS2-topics, omdat dit de standaardmanier is waarop ROS-systemen data uitwisselen.
+
+Daarnaast is gekozen voor het `Pose2D` message type omdat voor deze taak alleen de positie in een 2D-vlak nodig was.
+
+---
+
+# Beperkingen en faalscenario’s
+
+Odometry op basis van wielencoders heeft enkele beperkingen.
+
+Een belangrijk probleem is dat kleine meetfouten zich opstapelen over tijd. Hierdoor kan de geschatte positie langzaam afwijken van de werkelijke positie van de robot. Dit wordt drift genoemd.
+
+Daarnaast gaat het model ervan uit dat de wielen altijd perfecte grip hebben. In de praktijk kan slip optreden, waardoor de berekeningen minder nauwkeurig worden.
+
+Ook wordt er geen gebruikgemaakt van externe sensoren zoals camera’s of LiDAR om de positie te corrigeren. Hierdoor blijft de nauwkeurigheid beperkt bij langere ritten.
+
+Verder is in deze implementatie gebruikgemaakt van gesimuleerde encoderdata. Hierdoor zijn onregelmatigheden van echte hardware niet volledig meegenomen.
+
+Mogelijke faalscenario’s zijn:
+
+- foutieve encoderwaarden;
+- wegvallende topiccommunicatie;
+- verkeerde wielparameters;
+- onnauwkeurige metingen door slip;
+- afwijkingen door afrondingsfouten.
+
+Wanneer één van deze situaties optreedt, kan de geschatte robotpositie incorrect worden.
+
+---
+
+# Mogelijke verbeteringen
+
+De nauwkeurigheid van het systeem kan verbeterd worden door extra sensoren toe te voegen, zoals een camera of IMU.
+
+Daarnaast kan SLAM worden toegepast zodat de robot niet alleen zijn positie schat, maar ook een kaart van de omgeving opbouwt.
+
+Ook zou visualisatie in RViz toegevoegd kunnen worden om de robotpositie live weer te geven.
+
+Verder kan gebruikgemaakt worden van echte encoderdata van een fysieke Duckiebot in plaats van simulatie.
+
+---
+
+# Gebruikte software en technieken
+
+Voor deze opdracht is gebruikgemaakt van:
+
+| Technologie | Toepassing |
+|---|---|
+| Ubuntu Linux | Ontwikkelomgeving |
+| ROS2 | Robotcommunicatie en nodes |
+| Python | Implementatie van de nodes |
+| VS Code | Code-editor |
+| GitHub | Versiebeheer |
+| Publisher/subscriber model | Communicatie tussen nodes |
+
+---
+
+# Uitvoeren van de code
 
 Eerst wordt de ROS2-workspace gebouwd:
 
@@ -295,17 +386,23 @@ ros2 topic echo /odometry
 
 ---
 
-## Voorbeeld van output
+# Testen van het systeem
 
-Tijdens het uitvoeren van de nodes is te zien dat de pose continu verandert.
+Tijdens het testen zijn beide nodes afzonderlijk gestart in aparte terminals.
 
-Voorbeeld output van de odometry-node:
+De encoder simulator publiceerde continu encoderwaarden op het topic `/wheel_encoders`.
 
-```text
-Pose -> x: 0.033, y: 0.002, theta: 232.573
+De odometry-node ontving deze waarden en berekende live de robotpose.
+
+Met het volgende commando werd gecontroleerd of de pose correct gepubliceerd werd:
+
+```bash
+ros2 topic echo /odometry
 ```
 
-Voorbeeld output van het topic `/odometry`:
+Tijdens het testen veranderden de waarden van `x`, `y` en `theta` continu, wat bevestigt dat de odometryberekeningen correct uitgevoerd werden.
+
+Voorbeeld output:
 
 ```text
 x: 0.033
@@ -313,11 +410,9 @@ y: 0.001
 theta: 232.573
 ```
 
-Dit laat zien dat de robotpose live wordt berekend en gepubliceerd.
-
 ---
 
-## Resultaat
+# Resultaat
 
 De odometry-node voldoet aan de eisen van taak 1:
 
@@ -332,8 +427,10 @@ De odometry-node voldoet aan de eisen van taak 1:
 
 ---
 
-## Conclusie
+# Conclusie
 
-Voor taak 1 is een werkende ROS2 odometry-oplossing gemaakt. De encoderdata wordt ingelezen via het topic `/wheel_encoders`. Met behulp van een differential drive model wordt de robotpose berekend. Deze pose bestaat uit `x`, `y` en `theta` en wordt gepubliceerd op het topic `/odometry`.
+In deze opdracht is succesvol een ROS2 odometry-systeem ontwikkeld voor een Duckiebot.
 
-Hiermee kan de Duckiebot zijn positie en oriëntatie schatten op basis van wielencoderdata.
+Met behulp van wielencoderdata en een differential drive model kan de robot zijn positie en oriëntatie schatten. De pose wordt live gepubliceerd op het topic `/odometry`.
+
+De implementatie voldoet aan de eisen van taak 1 en vormt een basis voor verdere uitbreiding met SLAM en mapping.
