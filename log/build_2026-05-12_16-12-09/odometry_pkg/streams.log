@@ -1,0 +1,38 @@
+[1.731s] Invoking command in '/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/odometry_pkg build --build-base /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build install --record /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/install.log --single-version-externally-managed install_data
+[2.348s] running egg_info
+[2.382s] writing build/odometry_pkg/odometry_pkg.egg-info/PKG-INFO
+[2.383s] writing dependency_links to build/odometry_pkg/odometry_pkg.egg-info/dependency_links.txt
+[2.383s] writing entry points to build/odometry_pkg/odometry_pkg.egg-info/entry_points.txt
+[2.383s] writing requirements to build/odometry_pkg/odometry_pkg.egg-info/requires.txt
+[2.384s] writing top-level names to build/odometry_pkg/odometry_pkg.egg-info/top_level.txt
+[2.384s] writing manifest file 'build/odometry_pkg/odometry_pkg.egg-info/SOURCES.txt'
+[2.458s] reading manifest file 'build/odometry_pkg/odometry_pkg.egg-info/SOURCES.txt'
+[2.459s] writing manifest file 'build/odometry_pkg/odometry_pkg.egg-info/SOURCES.txt'
+[2.460s] running build
+[2.460s] running build_py
+[2.460s] copying odometry_pkg/encoder_sim_node.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg
+[2.460s] copying odometry_pkg/odometry_node.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg
+[2.460s] copying odometry_pkg/slam_node.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg
+[2.461s] copying odometry_pkg/__init__.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg
+[2.461s] running install
+[2.471s] running install_lib
+[2.506s] copying /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg/encoder_sim_node.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg
+[2.506s] copying /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg/odometry_node.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg
+[2.506s] copying /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg/slam_node.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg
+[2.506s] copying /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build/lib/odometry_pkg/__init__.py -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg
+[2.507s] byte-compiling /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg/encoder_sim_node.py to encoder_sim_node.cpython-312.pyc
+[2.508s] byte-compiling /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg/odometry_node.py to odometry_node.cpython-312.pyc
+[2.509s] byte-compiling /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg/slam_node.py to slam_node.cpython-312.pyc
+[2.510s] byte-compiling /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg/__init__.py to __init__.cpython-312.pyc
+[2.511s] running install_data
+[2.511s] copying resource/odometry_pkg -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/share/ament_index/resource_index/packages
+[2.511s] copying package.xml -> /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/share/odometry_pkg
+[2.511s] running install_egg_info
+[2.553s] removing '/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg-0.0.0-py3.12.egg-info' (and everything under it)
+[2.553s] Copying build/odometry_pkg/odometry_pkg.egg-info to /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages/odometry_pkg-0.0.0-py3.12.egg-info
+[2.556s] running install_scripts
+[2.694s] Installing encoder_sim_node script to /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/odometry_pkg
+[2.695s] Installing odometry_node script to /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/odometry_pkg
+[2.695s] Installing slam_node script to /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/odometry_pkg
+[2.695s] writing list of installed files to '/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/install.log'
+[2.736s] Invoked command in '/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/install/odometry_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/odometry_pkg build --build-base /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/build install --record /home/alyssa/Documenten/GitHub/Selfdriving-portfolio-2/build/odometry_pkg/install.log --single-version-externally-managed install_data
