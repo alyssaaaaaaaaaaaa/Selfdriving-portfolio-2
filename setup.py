@@ -22,6 +22,8 @@ setup(
         'console_scripts': [
             'encoder_sim_node = odometry_pkg.encoder_sim_node:main',
             'odometry_node = odometry_pkg.odometry_node:main',
+            'camera_sim_node = odometry_pkg.camera_sim_node:main',
+            'fusion_node = odometry_pkg.fusion_node:main',
             'slam_node = odometry_pkg.slam_node:main',
         ],
     },

@@ -9,7 +9,9 @@ build/odometry_pkg/odometry_pkg.egg-info/requires.txt
 build/odometry_pkg/odometry_pkg.egg-info/top_level.txt
 build/odometry_pkg/odometry_pkg.egg-info/zip-safe
 odometry_pkg/__init__.py
+odometry_pkg/camera_sim_node.py
 odometry_pkg/encoder_sim_node.py
+odometry_pkg/fusion_node.py
 odometry_pkg/odometry_node.py
 odometry_pkg/slam_node.py
 resource/odometry_pkg
